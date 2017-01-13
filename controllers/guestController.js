@@ -13,7 +13,7 @@ router.get(['/', '/index'], function(req, res) {
 
 router.get(['/popular'], function(req, res) {
     //affiche popular.html
-    Film.find
+
 });
 
 router.get(['/film/:id'], function(req, res) {
