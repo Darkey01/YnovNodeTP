@@ -2,16 +2,11 @@
  * Created by Reynald on 13/01/2017.
  */
 var router = require('express').Router();
-<<<<<<< HEAD
-var Nbfilm = require('../models/Config');
-var Film = require('../models/Film');
-=======
 var Film = require('../models/Config');
 var bodyParser = require('body-parser');
 var crypto = require('crypto');
 var mime = require('mime');
 var multer = require('multer');
->>>>>>> 4aeeba01c15e3d1f3225ff859c27e73e9c34e490
 
 
 var upload = multer({
@@ -73,9 +68,7 @@ router.get(['/configuration'], function (req, res) {
 
 router.post(['/configuration'], function(req, res){
 
-<<<<<<< HEAD
-});
-=======
+
     Nbfilm.find({}).exec(function(err, config){
         config[0].nbFilm.push(nbfilm);
         config.save(function (err , configSaved) {
@@ -87,4 +80,3 @@ router.post(['/configuration'], function(req, res){
 });
 
 module.exports = router;
->>>>>>> 4aeeba01c15e3d1f3225ff859c27e73e9c34e490
