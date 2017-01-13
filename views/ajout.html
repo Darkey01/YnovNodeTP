@@ -1,27 +1,39 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Ajout</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/public/css/main.css">
+    <title>9Gag Like</title>
 </head>
 <body>
-<h1>Ajouter un film</h1>
-<FORM action="" method="post">
-    <% if(typeof(error) != "undefined") { %>
-    <div class="alert alert-danger">
-        <p><%= error %></p>
-    </div>
-    <% } %>
-    <P>
-        <INPUT type="text" placeholder="Titre" id="titre"><BR><BR>
-        <INPUT type="text" placeholder="Réalisateur" id="realisateur"><BR><BR>
-        Choisir une image<INPUT type="file" placeholder="Choisir une image " id="image"><BR><BR>
-        <input type="date" name="date"><br><br>
-        <textarea name="synospis" rows="10" cols="50">Synospis</textarea><BR>
-        <INPUT type="submit" value="Ajout ce film">
-    </P>
-</FORM>
-
+<% include shared/menu.html %>
+<div class="container">
+    <h1>Ajouter un film</h1>
+    <FORM action="" class="form-horizontal" method="post" enctype="multipart/form-data">
+        <% if(typeof(error) != "undefined") { %>
+        <div class="alert alert-danger">
+            <p><%= error %></p>
+        </div>
+        <% } %>
+        <div class="form-group">
+            <INPUT name="titre" class="form-control" type="text" placeholder="Titre" id="titre">
+        </div>
+        <div class="form-group">
+            <INPUT name="realisateur" class="form-control" type="text" placeholder="Réalisateur" id="realisateur">
+        </div>
+        <div class="form-group">
+            Choisir une image<INPUT name="affiche" class="form-control" type="file" placeholder="Choisir une image " id="image">
+        </div>
+        <div class="form-group">
+            <input type="date" class="form-control" name="dateSortie">
+        </div>
+        <div class="form-group">
+            <textarea name="synospis" class="form-control" rows="10" cols="50">Synospis</textarea>
+        </div>
+        <INPUT class="btn btn-primary" type="submit" value="Ajout ce film">
+        </P>
+    </FORM>
+</div>
 </body>
 </html>

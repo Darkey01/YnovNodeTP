@@ -13,13 +13,14 @@ router.get(['/', '/index'], function(req, res) {
 
 router.get(['/popular'], function(req, res) {
     //affiche popular.html
+    Film.find
 });
 
 router.get(['/film/:id'], function(req, res) {
    //affiche detail.html
     var idFilm = req.params.id;
 
-    Film.findById(idFilm).populate('avis').exec(function(err, post) {
+    Film.findById(idFilm).populate('avis').exec(function(err, film) {
         res.render('detail.html', { film: film});
     });
 });
