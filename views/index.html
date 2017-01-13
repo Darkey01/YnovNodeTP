@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/public/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/public/css/main.css">
     <title>9Gag Like</title>
-  </head>
-  <body>
+</head>
+<body>
 
-    <% include shared/menu.html %>
+<% include shared/menu.html %>
 
-    <div class="container">
-      <% posts.forEach(function(post) { %>
-      <div class="thumbnail">
-        <img src="<%= '/' + post.picture %>" alt="...">
-        <div class="caption">
-          <h3><%= post.title %></h3>
-          <p><%= post.author %></p>
-          <p><a href="/post/<%= post.id %>" class="btn btn-primary" role="button">Detail</a></p>
+<div class="container">
+    <% films.forEach(function(film) { %>
+    <a href="/film/<%= film.id %>" class="btn btn-primary" role="button">
+        <div class="thumbnail">
+            <div class="caption">
+                <h3><%= film.titre %></h3>
+                <h4>By <%= film.realisateur %></h4>
+            </div>
+            <img src="<%= '/' + film.affiche %>" alt="...">
         </div>
-      </div>
-      <% }) %>
-    </div>
-
-  </body>
+    </a>
+    <% }) %>
+</div>
+<ul class="pagination">
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+</ul>
+</body>
 </html>
