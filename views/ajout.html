@@ -8,6 +8,11 @@
 <body>
 <h1>Ajouter un film</h1>
 <FORM action="" method="post">
+    <% if(typeof(error) != "undefined") { %>
+    <div class="alert alert-danger">
+        <p><%= error %></p>
+    </div>
+    <% } %>
     <P>
         <INPUT type="text" placeholder="Titre" id="titre"><BR><BR>
         <INPUT type="text" placeholder="Réalisateur" id="realisateur"><BR><BR>
