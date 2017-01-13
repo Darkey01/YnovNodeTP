@@ -9,6 +9,16 @@ var mime = require('mime');
 var multer = require('multer');
 
 
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'public/imgs');
+    },
+    filename: function(req, file, cb) {
+        crypto.pseudoRandomBytes(16, function (err, raw) {
+            cb(err, raw.toString('hex') + '.' + mime.extension(file.mimetype));
+        });
+    }
+});
 var upload = multer({
     storage: storage,
     fileFilter: function(req, file, cb) {
@@ -25,17 +35,17 @@ var upload = multer({
 var parser = bodyParser.urlencoded({extended: false});
 
 
-router.get(['/add'], parser, function(req, res) {
+router.get(['/add'] , function(req, res) {
     //affiche ajout.html
     res.render('ajout.html');
 });
 
-router.post(['/add'], function(req, res){
+router.post(['/add'], parser,  function(req, res){
 
     upload(req, res, function(err) {
 
         if(err) {
-            return res.render('post.html', { error: err.message});
+            return res.render('ajout.html', { error: err.message});
         }
 
     var title = req.body.title;

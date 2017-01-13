@@ -7,7 +7,7 @@ var db = require('../config/db');
 var Schema = db.Schema;
 
 var configSchema = new Schema({
-    nbFilm: number
+    nbFilm: 'Number'
 });
 
 var Nombre = db.model('Nombre', configSchema);
