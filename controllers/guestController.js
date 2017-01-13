@@ -7,6 +7,7 @@ var Film = require('../models/Film');
 router.get(['/', '/index'], function(req, res) {
     //affiche index.html
     Film.find({}).sort('-dateSortie').exec(function(err, films) {
+        console.log(films);
         res.render('index.html', {films : films});
     });
 });

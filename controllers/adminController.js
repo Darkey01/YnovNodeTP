@@ -30,7 +30,7 @@ var upload = multer({
             cb(new Error('Fichier incorrect'));
         }
     }
-}).single('picture');
+}).single('affiche');
 
 var parser = bodyParser.urlencoded({extended: false});
 
