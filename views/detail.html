@@ -14,12 +14,12 @@
       <div class="thumbnail">
         <img src="<%= '/' + film.picture %>" alt="...">
         <div class="caption">
-          <h3><%= post.title %></h3>
-          <p><%= post.author %></p>
+          <h3><%= film.title %></h3>
+          <p><%= film.author %></p>
         </div>
       </div>
       <div id="comments">
-        <% post.comments.forEach(function(comment) { %>
+        <% film.avis.forEach(function(comment) { %>
           <div>
             <p><%= comment.pseudo %></p>
             <p><%= comment.comment %></p>

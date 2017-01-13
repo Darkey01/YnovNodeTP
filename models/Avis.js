@@ -13,6 +13,6 @@ var avisSchema = new Schema({
     film: { type: Schema.Types.ObjectId, ref: 'Film'}
 });
 
-var Comment = db.model('Comment', avisSchema);
+var Avis = db.model('Avis', avisSchema);
 
-module.exports = Comment;
+module.exports = Avis;

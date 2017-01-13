@@ -3,6 +3,7 @@
  */
 var router = require('express').Router();
 var Film = require('../models/Film');
+var Avis = require('../models/Avis');
 
 router.get(['/', '/index'], function(req, res) {
     //affiche index.html
@@ -23,37 +24,30 @@ router.get(['/film/:id'], function(req, res) {
    //affiche detail.html
     var idFilm = req.params.id;
 
-    Film.findById(idFilm).populate('avis').exec(function(err, post) {
+    Film.findById(idFilm).populate('avis').exec(function(err, film) {
         res.render('detail.html', { film: film});
     });
 });
 
-router.post('/film/:id', parser, function(req, res) {
-    var idPost = req.params.id;
+router.post('/film/:id', function(req, res) {
+    var idFilm = req.params.id;
     var pseudo = req.body.pseudo;
     var comment = req.body.comment;
     var note = req.body.note;
 
-    var a = avis({
-        film: idPost,
+    var a = Avis({
+        film: idFilm,
         pseudo: pseudo,
         avis: comment,
         note: note
-    }).save(function(err, comment) {
-        Post.findById(idPost, function(err, post) {
-            post.comments.push(comment.id);
-            post.save(function(err, postSaved) {
-                res.redirect('/post/'+idPost);
+    }).save(function(err, avis) {
+        Film.findById(idFilm, function(err, film) {
+            film.avis.push(avis.id);
+            film.save(function(err, postSaved) {
+                res.redirect('/film/'+idFilm);
             });
         });
     });
-    /*Post.findById(idPost, function(err, post) {
-     post.comments.push(idPost);
-     post.save(function(err, postSaved) {
-
-     });
-     });*/
-
 });
 
 module.exports = router ;
