@@ -13,6 +13,9 @@ router.get(['/', '/index'], function(req, res) {
 
 router.get(['/popular'], function(req, res) {
     //affiche popular.html
+    Film.find({}).exec(function (err, films) {
+        res.render('popular.html', {films: films});
+    });
 });
 
 router.get(['/film/:id'], function(req, res) {
