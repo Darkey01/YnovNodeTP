@@ -14,14 +14,16 @@ router.get(['/', '/index'], function(req, res) {
 
 router.get(['/popular'], function(req, res) {
     //affiche popular.html
-
+    Film.find({}).exec(function (err, films) {
+        res.render('popular.html', {films: films});
+    });
 });
 
 router.get(['/film/:id'], function(req, res) {
    //affiche detail.html
     var idFilm = req.params.id;
 
-    Film.findById(idFilm).populate('avis').exec(function(err, film) {
+    Film.findById(idFilm).populate('avis').exec(function(err, post) {
         res.render('detail.html', { film: film});
     });
 });
