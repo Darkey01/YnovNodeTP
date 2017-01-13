@@ -28,4 +28,32 @@ router.get(['/film/:id'], function(req, res) {
     });
 });
 
+router.post('/film/:id', parser, function(req, res) {
+    var idPost = req.params.id;
+    var pseudo = req.body.pseudo;
+    var comment = req.body.comment;
+    var note = req.body.note;
+
+    var a = avis({
+        film: idPost,
+        pseudo: pseudo,
+        avis: comment,
+        note: note
+    }).save(function(err, comment) {
+        Post.findById(idPost, function(err, post) {
+            post.comments.push(comment.id);
+            post.save(function(err, postSaved) {
+                res.redirect('/post/'+idPost);
+            });
+        });
+    });
+    /*Post.findById(idPost, function(err, post) {
+     post.comments.push(idPost);
+     post.save(function(err, postSaved) {
+
+     });
+     });*/
+
+});
+
 module.exports = router ;
