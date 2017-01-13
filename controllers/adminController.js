@@ -2,7 +2,7 @@
  * Created by Reynald on 13/01/2017.
  */
 var router = require('express').Router();
-var Film = require('../models/Config');
+var Film = require('../models/Film');
 var bodyParser = require('body-parser');
 var crypto = require('crypto');
 var mime = require('mime');
@@ -48,25 +48,26 @@ router.post(['/add'], parser,  function(req, res){
             return res.render('ajout.html', { error: err.message});
         }
 
-    var title = req.body.title;
-    var author = req.body.author;
-    var date = req.body.date;
-    var synopsis = req.body.synospis;
+        var title = req.body.titre;
+        var author = req.body.realisateur;
+        var date = req.body.date;
+        var synopsis = req.body.synospis;
 
-    var film = {
-        title: title,
-        author: author,
-        date: date,
-        synopsis: synopsis,
-        picture: req.file.path
-    }
+        var film = {
+            titre: title,
+            realisateur: author,
+            dateSortie: date,
+            dateUpload: Date.now(),
+            sypnosis: synopsis,
+            affiche: req.file.path
+        }
 
-    var f = new Film(film);
+        var f = new Film(film);
 
-    f.save(function (err, filmSaved) {
-        res.redirect('/');
-    })
-});
+        f.save(function (err, filmSaved) {
+            res.redirect('/');
+        })
+    });
 });
 
 
@@ -77,7 +78,6 @@ router.get(['/configuration'], function (req, res) {
 });
 
 router.post(['/configuration'], function(req, res){
-
 
     Nbfilm.find({}).exec(function(err, config){
         config[0].nbFilm.push(nbfilm);

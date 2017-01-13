@@ -2,7 +2,7 @@
  * Created by Reynald on 13/01/2017.
  */
 var db = require('../config/db');
-var Avis = require('./Film');
+var Avis = require('./Avis');
 
 var Schema = db.Schema;
 
@@ -16,6 +16,6 @@ var filmSchema = new Schema({
     avis: [{ type: Schema.Types.ObjectId, ref: 'Avis'}]
 });
 
-var Comment = db.model('Comment', filmSchema);
+var Film = db.model('Film', filmSchema);
 
-module.exports = Comment;
+module.exports = Film;
