@@ -1,6 +1,6 @@
 var router = require('express').Router();
 
-router.use('/', require('./homeController'));
-router.use('/post', require('./postController'));
+router.use('/admin', require('./adminController'));
+router.use('/', require('./guestController'));
 
 module.exports = router;
