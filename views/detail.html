@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="/public/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/public/css/main.css" />
-  <title>9Gag Like</title>
 </head>
 <body>
 
@@ -15,8 +14,8 @@
     <article class="caption">
       <h3><%= film.titre %></h3>
       <h4>Par <%= film.realisateur %></h4>
-      <article style="display: inline-block ; width: 70%"><img src="<%= '/' + film.affiche%>" alt="..."></article>
-      <aside style="display: inline-block ; width: 20%">
+      <article style="vertical-align : top; display: inline-block ; width: 70%"><img style="height: 450px ; width: 700px" src="<%= '/' + film.affiche%>" alt="..."></article>
+      <aside style="display: inline-block ; width: 20%" >
         <p>Date de Sortie : <%= film.dateSortie%></p>
         <p>Date de mise en Ligne : <%= film.dateUpload %></p>
         <p> Synopsis : <%= film.sypnosis %></p>
@@ -31,7 +30,7 @@
   </div>
   <% }) %>
 </div>
-<div>
+<div style="border: solid 1px grey ; padding: 5px">
   <form method="POST" class="horizontal-form">
     <h4> Poster votre avis:</h4>
     <div class="form-group">

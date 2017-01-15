@@ -1,19 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Popular</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/public/css/main.css">
 </head>
 <body>
-<h1>Top 3 des films les mieux notés</h1>
+
+<% include shared/menu.html %>
+
 <div class="container">
-    <div class="thumbnail">
-        <img src="http://t1.gstatic.com/images?q=tbn:ANd9GcTEJlX9_RKvgnHDHcMUrEL0zFDtz8LEEVGvfnxkJYBM972HVlv0">
-        <div class="caption">
-            <h3>Titre</h3>
-            <p>Auteur</p>
-            <p><a href="#" class="btn btn-primary" role="button">Detail</a></p>
-        </div>
+    <h1>Top 3 des films les mieux notés</h1>
+    <div class="container">
+        <% films.forEach(function(film) { %>
+        <a href="/film/<%= film.id %>" class="btn btn-primary" role="button">
+            <div class="thumbnail" style="width: 100%">
+                <div class="caption">
+                    <h3><%= film.titre %></h3>
+                    <h4>By <%= film.realisateur %></h4>
+                </div>
+                <img height="600px" width="800px" src="<%= '/' + film.affiche %>" alt="...">
+            </div>
+        </a>
+        <% }) %>
     </div>
 </div>
 </body>

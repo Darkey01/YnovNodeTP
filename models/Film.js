@@ -13,6 +13,7 @@ var filmSchema = new Schema({
     dateSortie : 'Date',
     dateUpload : 'Date',
     sypnosis : 'String',
+    moyenne : {type : 'Number', default  : 0},
     avis: [{ type: Schema.Types.ObjectId, ref: 'Avis'}]
 });
 

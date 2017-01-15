@@ -50,7 +50,7 @@ router.post(['/add'], parser,  function(req, res){
 
         var title = req.body.titre;
         var author = req.body.realisateur;
-        var date = req.body.date;
+        var date = req.body.dateSortie;
         var synopsis = req.body.synospis;
 
         var film = {

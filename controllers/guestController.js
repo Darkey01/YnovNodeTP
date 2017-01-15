@@ -44,7 +44,7 @@ router.get(['/', '/index'], function(req, res) {
 
 router.get(['/popular'], function(req, res) {
     //affiche popular.html
-    Film.find({}).exec(function (err, films) {
+    Film.find({}).sort('-moyenne').limit(3).exec(function (err, films) {
         res.render('popular.html', {films: films});
     });
 });
@@ -73,6 +73,8 @@ router.post('/film/:id',parser, function(req, res) {
     }).save(function(err, avis) {
         Film.findById(idFilm, function(err, film) {
             film.avis.push(avis.id);
+            var nbAvis = film.avis.length;
+            film.moyenne = (((film.moyenne*(nbAvis-1))+note)/nbAvis);
             film.save(function(err, postSaved) {
                 res.redirect('/film/'+idFilm);
             });

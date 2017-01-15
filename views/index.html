@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="/public/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/public/css/main.css">
-    <title>9Gag Like</title>
 </head>
 <body>
 
@@ -12,8 +11,8 @@
 
 <div class="container">
     <% films.forEach(function(film) { %>
-    <a href="/film/<%= film.id %>" class="btn btn-primary" role="button">
-        <div class="thumbnail">
+    <a href="/film/<%= film.id %>" style="width: 100%" class="btn btn-primary" role="button">
+        <div class="thumbnail" style="width: 100%">
             <div class="caption">
                 <h3><%= film.titre %></h3>
                 <h4>By <%= film.realisateur %></h4>
