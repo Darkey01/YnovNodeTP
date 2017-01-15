@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var crypto = require('crypto');
 var mime = require('mime');
 var multer = require('multer');
-
+var Conf = require('../models/Config');
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -74,19 +74,42 @@ router.post(['/add'], parser,  function(req, res){
 
 router.get(['/configuration'], function (req, res) {
     //configuration
-    res.render('configuration.html');
+    Conf.find({}).exec(function (err, confs) {
+
+        var conf = confs[0];
+        if (!conf) {
+            conf = {
+                nbFilmParPage: 5
+            }
+        };
+        res.render('configuration.html',{ancienneVal: conf.nbFilmParPage});
+    });
 });
 
-router.post(['/configuration'], function(req, res){
-
-    Nbfilm.find({}).exec(function(err, config){
-        config[0].nbFilm.push(nbfilm);
-        config.save(function (err , configSaved) {
-            Film.find({}).sort('-dateSortie').exec(function(err, films) {
-                res.render('index.html', {films : films ,nbFilm :configSaved[0].nbFilm});
+router.post(['/configuration'], parser,  function(req, res){
+    var nbfilm = req.body.nbfilm;
+    Conf.find({}).exec(function(err, config){
+        var conf = config[0];
+        if (!conf) {
+            console.log('ici');
+            conf = {
+                nbFilmParPage: nbfilm,
+                ligneConf : 1
+            };
+            var p = new Conf(conf);
+            p.save(function (err,confsaved) {
+                res.redirect("/");
             })
-        })
-    });
+        }else{
+            Conf.findOneAndUpdate({ligneConf: 1}, {$set:{nbFilmParPage:nbfilm}}, {new: true}, function(err, doc){
+                if(err){
+                    console.log("Something wrong when updating data!");
+                }
+
+                console.log(doc);
+                res.redirect('/');
+            });
+        }});
 });
 
 module.exports = router;

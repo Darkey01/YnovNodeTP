@@ -4,6 +4,7 @@
 var router = require('express').Router();
 var Film = require('../models/Film');
 var Avis = require('../models/Avis');
+var Conf = require('../models/Config');
 var multer = require('multer');
 var bodyParser = require('body-parser');
 var crypto = require('crypto');
@@ -36,9 +37,43 @@ var parser = bodyParser.urlencoded({extended: false});
 
 router.get(['/', '/index'], function(req, res) {
     //affiche index.html
-    Film.find({}).sort('-dateSortie').exec(function(err, films) {
-        console.log(films);
-        res.render('index.html', {films : films});
+    Conf.find({}).exec(function (err, confs) {
+
+        var conf = confs[0];
+        if (!conf){
+            conf = {
+                nbFilmParPage:5
+            }
+        };
+        Film.find({}).sort('-dateSortie').limit(conf.nbFilmParPage).exec(function (err, filmstot) {
+            var nbFilm = filmstot.length;
+        Film.find({}).sort('-dateSortie').limit(conf.nbFilmParPage).exec(function (err, films) {
+
+            var nbPage = nbFilm % conf.nbFilmParPage;
+            console.log(nbFilm%conf.nbFilmParPage);
+            if (nbPage == 0 ) {nbPage = 1} ;
+            res.render('index.html', {films: films, nbPage:nbPage  });
+        });
+    });
+    });
+});
+
+router.get(['/:nbpage', '/index/:nbpage'], function(req, res) {
+    //affiche index.html
+    var laPage = req.params.nbpage;
+    Conf.find({}).exec(function (err, confs) {
+        var conf = confs[0];
+        if (!conf){
+            conf = {
+                nbFilmParPage:5
+            }
+        };
+        Film.find({}).sort('-dateSortie').skip(conf.nbFilmParPage*(laPage-1)).limit(conf.nbFilmParPage*laPage).exec(function (err, films) {
+            var nbFilm = films.length;
+            var nbPage = conf.nbFilmParPage % nbFilm ;
+            if (nbPage == 0 ) {nbPage = 1} ;
+            res.render('index.html', {films: films, nbPage:nbPage  });
+        });
     });
 });
 

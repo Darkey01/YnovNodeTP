@@ -10,10 +10,11 @@
 <% include shared/menu.html %>
 
 <div class="container">
-<h1>Configuration</h1>
-    <form>
-        <p>Ancien nombre de film par page : </p>
-        <p>Nouveau nombre de film par page : </p><input type="number" name="nbfilm">
+    <h1>Configuration</h1>
+    <p>Ancien nombre de film par page : <%= ancienneVal %> </p>
+    <form method="post" action="">
+        <p>Nouveau nombre de film par page : </p><input type="number" name="nbfilm" min="0">
+        <button type="submit">  Validez</button>
     </form>
 </div>
 

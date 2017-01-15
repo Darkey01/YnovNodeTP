@@ -7,7 +7,8 @@ var db = require('../config/db');
 var Schema = db.Schema;
 
 var configSchema = new Schema({
-    nbFilm: 'Number'
+    nbFilmParPage: {type : 'Number' , default : '5'},
+    ligneConf : 'Number'
 });
 
 var Nombre = db.model('Nombre', configSchema);
