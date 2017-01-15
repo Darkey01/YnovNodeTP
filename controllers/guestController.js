@@ -4,6 +4,35 @@
 var router = require('express').Router();
 var Film = require('../models/Film');
 var Avis = require('../models/Avis');
+var multer = require('multer');
+var bodyParser = require('body-parser');
+var crypto = require('crypto');
+var mime = require('mime');
+
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'public/imgs');
+    },
+    filename: function(req, file, cb) {
+        crypto.pseudoRandomBytes(16, function (err, raw) {
+            cb(err, raw.toString('hex') + '.' + mime.extension(file.mimetype));
+        });
+    }
+});
+var upload = multer({
+    storage: storage,
+    fileFilter: function(req, file, cb) {
+        var extensions = ['jpg', 'jpeg', 'png', 'bmp', 'gif'];
+        var ext = mime.extension(file.mimetype);
+        if(extensions.indexOf(ext) != -1) {
+            cb(null, true);
+        }else {
+            cb(new Error('Fichier incorrect'));
+        }
+    }
+}).single('picture');
+
+var parser = bodyParser.urlencoded({extended: false});
 
 router.get(['/', '/index'], function(req, res) {
     //affiche index.html
@@ -29,7 +58,8 @@ router.get(['/film/:id'], function(req, res) {
     });
 });
 
-router.post('/film/:id', function(req, res) {
+router.post('/film/:id',parser, function(req, res) {
+
     var idFilm = req.params.id;
     var pseudo = req.body.pseudo;
     var comment = req.body.comment;
